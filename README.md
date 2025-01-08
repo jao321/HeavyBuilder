@@ -78,6 +78,33 @@ You can get information about different options by using:
 ABodyBuilder2 --help
 ```
 
+
+
+### Antibody heavy-chain only structure prediction
+
+To predict an antibody heavy chain structure using the python API you can do the following.
+
+```python
+from ImmuneBuilder import HeavyBuilder2
+predictor = HeavyBuilder2()
+
+output_file = "my_antibody_heavy_chain.pdb"
+sequences = {
+  'H': 'EVQLVESGGGVVQPGGSLRLSCAASGFTFNSYGMHWVRQAPGKGLEWVAFIRYDGGNKYYADSVKGRFTISRDNSKNTLYLQMKSLRAEDTAVYYCANLKDSRYSGSYYDYWGQGTLVTVS'
+  }
+
+antibody_heavy_chain = predictor.predict(sequences)
+antibody_heavy_chain.save(output_file)
+```
+
+HeavyBuilder2 can also be used via de command line. To do this you can use:
+
+```bash
+HeavyBuilder2 --fasta_file my_antibody_heavy_chain.fasta -v
+```
+
+
+
 I would recommend using the python API if you intend to predict many structures as you only have to load the models once.
 
 Happy antibodies!!
