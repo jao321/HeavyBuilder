@@ -19,9 +19,9 @@ embed_dim = {
 }
 
 model_urls = {
-    "heavy_chain_model_1": "https://drive.google.com/file/d/1DEQC-dCCmtEA0YZ0nh-RoirHKrSO4JFx/view?usp=sharing",
-    "heavy_chain_model_2": "https://drive.google.com/file/d/14NRjdAtBJWF3BvZ_L0ItOLN_Os-moYif/view?usp=sharing",
-    "heavy_chain_model_3": "https://drive.google.com/file/d/1-TgBPGoxesh3SZqCEFZk3m5LHCX4BuQn/view?usp=sharing",
+    "heavy_chain_model_1": "https://drive.usercontent.google.com/download?id=1DEQC-dCCmtEA0YZ0nh-RoirHKrSO4JFx&export=download&confirm=t&uuid=c10ff3c8-9c62-472d-b3ce-275c7666af35",#"https://drive.google.com/file/d/1DEQC-dCCmtEA0YZ0nh-RoirHKrSO4JFx/view?usp=sharing",
+    "heavy_chain_model_2": "https://drive.usercontent.google.com/download?id=14NRjdAtBJWF3BvZ_L0ItOLN_Os-moYif&export=download&confirm=t&uuid=1161bc9f-1543-44bd-aef9-c5f4c371414d",#"https://drive.google.com/file/d/14NRjdAtBJWF3BvZ_L0ItOLN_Os-moYif/view?usp=sharing",
+    "heavy_chain_model_3": "https://drive.usercontent.google.com/download?id=1-TgBPGoxesh3SZqCEFZk3m5LHCX4BuQn&export=download&confirm=t&uuid=91c94449-ed33-4699-a7bc-4f84fdfb19ed",#"https://drive.google.com/file/d/1-TgBPGoxesh3SZqCEFZk3m5LHCX4BuQn/view?usp=sharing",
     #"heavy_chain_model_4": "https://drive.google.com/file/d/1IEKXWVug3C_LytVkAdRt43fz5a6xBMrr/view?usp=sharing",
 }
 
