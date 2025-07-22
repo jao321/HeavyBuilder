@@ -41,8 +41,8 @@ class HeavyBuilder:
             self.ranking = [x.item() for x in self.error_estimates.mean(-1).argsort()] #self.ranking = the one with cdr3 nearest to the mean
         
 
-    def save_single_unrefined(self, filename):
-        index = self.ranking.index(0)
+    def save_single_unrefined(self, filename, index=0):
+        # index = self.ranking.index(0)
         atoms = (self.atoms[index] - self.t[index]) @ self.R[index]
         unrefined = to_pdb(self.numbered_sequences, atoms)
         with open(filename, "w+") as file:
@@ -59,7 +59,7 @@ class HeavyBuilder:
 
         for i in range(len(self.atoms)):
 
-            unrefined_filename = os.path.join(dirname,f"rank{self.ranking.index(0)}_unrefined.pdb")
+            unrefined_filename = os.path.join(dirname,f"rank{self.ranking[i]}_unrefined.pdb")
             self.save_single_unrefined(unrefined_filename)
 
         np.save(os.path.join(dirname,"error_estimates"), self.error_estimates.mean(0).cpu().numpy())
