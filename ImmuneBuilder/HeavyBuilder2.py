@@ -8,7 +8,7 @@ from ImmuneBuilder.util import get_encoding, to_pdb, find_alignment_transform, d
 from ImmuneBuilder.refine import refine
 from ImmuneBuilder.sequence_checks import number_sequences
 import time
-from joblib import Parallel, delayed
+# from joblib import Parallel, delayed
 
 torch.set_num_threads(1)
 embed_dim = {
