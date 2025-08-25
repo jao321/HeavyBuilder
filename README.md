@@ -2,23 +2,16 @@
 
 <div align="center">    
  
-# ImmuneBuilder: Deep-Learning models for predicting the structures of immune proteins 
+# HeavyBuilder2: Analysis of High-Throughput of Antibody Heavy Chain Repertoires in the Structural Space
 
 </div>
 
 ---
 
-## Update 1.1.1
-The weights of TCRBuilder2 have been updated to TCRBuilder2+. See the [pre-print](https://www.biorxiv.org/content/10.1101/2024.05.20.594940v1) for more information.
-
 ## Abstract
 
-Immune receptor proteins play a key role in the immune system and have shown great promise as biotherapeutics. The structure of these proteins is critical for understanding what antigen they bind. Here, we present ImmuneBuilder, a set of deep learning models trained to accurately predict the structure of antibodies (ABodyBuilder2), nanobodies (NanoBodyBuilder2) and T-Cell receptors (TCRBuilder2). We show that ImmuneBuilder generates structures with state of the art accuracy while being much faster than AlphaFold2. For example, on a benchmark of 34 recently solved antibodies, ABodyBuilder2 predicts CDR-H3 loops with an RMSD of 2.81Å, a 0.09Å improvement over AlphaFold-Multimer, while being over a hundred times faster. Similar results are also achieved for nanobodies (NanoBodyBuilder2 predicts CDR-H3 loops with an average RMSD of 2.89Å, a 0.55Å improvement over AlphaFold2) and TCRs. By predicting an ensemble of structures, ImmuneBuilder also gives an error estimate for every residue in its final prediction.
+Most antibody sequence data that’s publicly available comes from heavy chains, since they’re cheaper and easier to sequence than paired heavy–light chains. However, studying the 3D structure of these heavy chains at scale has been difficult — existing methods are often too slow or too resource-intensive. Fluft is a deep learning tool that makes this process fast and reliable. Built on the igfold framework, it can predict up to one million heavy chain structures in just over three days on a single GPU. It outperforms AlphaFold2 and IgFold, running much faster while maintaining accuracy. This makes it a practical solution for immune repertoire scale studies, with potential to speed up antibody discovery and analysis.
 
-
-## Colab
-
-To test the method out without installing it you can try this <a href="https://colab.research.google.com/github/brennanaba/ImmuneBuilder/blob/main/notebook/ImmuneBuilder.ipynb">Google Colab</a>
 
 ## Install
 
@@ -39,92 +32,54 @@ It also uses anarci for trimming and numbering sequences. We recommend installin
 $ conda install -c bioconda anarci
 ```
 
-### Install ImmuneBuilder
+### Install HeavyBUilder
 
-Once you have all dependencies installed within one enviroment, you can install ImmuneBuilder via PyPI by doing:
+Once you have all dependencies installed within one enviroment, you can install ImmuneBuilder via pip by doing:
 
 ```bash
-$ pip install ImmuneBuilder
+$ git clone https://github.com/jao321/ImmuneBuilder_plus_heavy.git
+$ pip install ImmuneBuilder_plus_heavy/
 ```
 
 ## Usage
 
-### Antibody structure prediction
+### Antibody heavy chain structure prediction
 
-To predict an antibody structure using the python API you can do the following.
+To predict an antibody heavy chain structure using the python API you can do the following.
 
 ```python
-from ImmuneBuilder import ABodyBuilder2
-predictor = ABodyBuilder2()
+from ImmuneBuilder import HeavyBuilder2
+predictor = HeavyBuilder2()
 
-output_file = "my_antibody.pdb"
+output_file = "my_antibody_heavy_chain.pdb"
 sequences = {
-  'H': 'EVQLVESGGGVVQPGGSLRLSCAASGFTFNSYGMHWVRQAPGKGLEWVAFIRYDGGNKYYADSVKGRFTISRDNSKNTLYLQMKSLRAEDTAVYYCANLKDSRYSGSYYDYWGQGTLVTVS',
-  'L': 'VIWMTQSPSSLSASVGDRVTITCQASQDIRFYLNWYQQKPGKAPKLLISDASNMETGVPSRFSGSGSGTDFTFTISSLQPEDIATYYCQQYDNLPFTFGPGTKVDFK'}
+  'H': 'EVQLVESGGGVVQPGGSLRLSCAASGFTFNSYGMHWVRQAPGKGLEWVAFIRYDGGNKYYADSVKGRFTISRDNSKNTLYLQMKSLRAEDTAVYYCANLKDSRYSGSYYDYWGQGTLVTVS'}
 
 antibody = predictor.predict(sequences)
 antibody.save(output_file)
 ```
 
-ABodyBuilder2 can also be used via de command line. To do this you can use:
+HeavyBuilder2 can also be used via de command line. To do this you can use:
 
 ```bash
-ABodyBuilder2 --fasta_file my_antibody.fasta -v
+HeavyBuilder2 --fasta_file my_antibody_heavy_chain.fasta -v
 ```
 
 You can get information about different options by using:
 
 ```bash
-ABodyBuilder2 --help
+HeavyBuilder2 --help
 ```
 
 I would recommend using the python API if you intend to predict many structures as you only have to load the models once.
 
+If you want to speed up the prediction
+
+```python
+antibody.save_single_unrefined(output_file)
+```
+
 Happy antibodies!!
-
-### Nanobody structure prediction
-
-The python API for nanobodies is quite similar than for antibodies.
-
-```python
-from ImmuneBuilder import NanoBodyBuilder2
-predictor = NanoBodyBuilder2()
-
-output_file = "my_nanobody.pdb"
-sequence = {'H': 'QVQLVESGGGLVQPGESLRLSCAASGSIFGIYAVHWFRMAPGKEREFTAGFGSHGSTNYAASVKGRFTMSRDNAKNTTYLQMNSLKPADTAVYYCHALIKNELGFLDYWGPGTQVTVSS'}
-
-nanobody = predictor.predict(sequence)
-nanobody.save(output_file)
-```
-
-And it can also be used from the command line:
-
-```bash
-NanoBodyBuilder2 --fasta_file my_nanobody.fasta -v
-```
-
-### TCR structure prediction
-
-*UPDATE* - By default TCRBuilder2 now uses the TCRBuilder2+ weights. If you would like to use the original weights please specify `use_TCRBuilder2_PLUS_weights=False` or set the flag `--original_weights` from the command line. 
-
-```python
-from ImmuneBuilder import TCRBuilder2
-predictor = TCRBuilder2()
-
-output_file = "my_tcr.pdb"
-sequences = {
-"A": "AQSVTQLGSHVSVSEGALVLLRCNYSSSVPPYLFWYVQYPNQGLQLLLKYTSAATLVKGINGFEAEFKKSETSFHLTKPSAHMSDAAEYFCAVSEQDDKIIFGKGTRLHILP",
-"B": "ADVTQTPRNRITKTGKRIMLECSQTKGHDRMYWYRQDPGLGLRLIYYSFDVKDINKGEISDGYSVSRQAQAKFSLSLESAIPNQTALYFCATSDESYGYTFGSGTRLTVV"}
-
-tcr = predictor.predict(sequences)
-tcr.save(output_file)
-```
-
-And it can also be used from the command line:
-
-```bash
-TCRBuilder2 --fasta_file my_tcr.fasta -v
-```
 
 ### Fasta formatting
 
@@ -137,11 +92,9 @@ YOURHEAVYCHAINSEQUENCE
 YOURLIGHCHAINSEQUENCE
 ```
 
-If you are running it on TCRs the chain labels should be A for the alpha chain and B for the beta chain. On nanobodies the fasta file should only contain a heavy chain labelled H.
-
 ## Issues and Pull requests
 
-Please submit issues and pull requests on this <a href="https://github.com/brennanaba/ImmuneBuilder">repo</a>.
+Please submit issues and pull requests on this <a href="https://github.com/jao321/ImmuneBuilder_plus_heavy">repo</a>.
 
 ### Known issues
 
@@ -154,29 +107,6 @@ Please submit issues and pull requests on this <a href="https://github.com/brenn
 The code and data in this package is based on the following paper <a href="https://doi.org/10.1038/s42003-023-04927-7">ImmuneBuilder</a>. If you use it, please cite:
 
 ```tex
-@article{Abanades2023,
-	author = {Abanades, Brennan and Wong, Wing Ki and Boyles, Fergus and Georges, Guy and Bujotzek, Alexander and Deane, Charlotte M.},
-	doi = {10.1038/s42003-023-04927-7},
-	issn = {2399-3642},
-	journal = {Communications Biology},
-	number = {1},
-	pages = {575},
-	title = {ImmuneBuilder: Deep-Learning models for predicting the structures of immune proteins},
-	volume = {6},
-	year = {2023}
-}
-```
-
-TCRBuilder2+ is described in our pre-print: <a href="https://doi.org/10.1101/2024.05.20.594940">T-cell receptor structures and predictive models reveal comparable alpha and beta chain structural diversity despite differing genetic complexity</a>. If you use it, please cite:
-
-```tex
-@article {Quast2024,
-	author = {Quast, Nele P. and Abanades, Brennan and Guloglu, Bora and Karuppiah, Vijaykumar and Harper, Stephen and Raybould, Matthew I. J. and Deane, Charlotte M.},
-	title = {T-cell receptor structures and predictive models reveal comparable alpha and beta chain structural diversity despite differing genetic complexity},
-	year = {2024},
-	doi = {10.1101/2024.05.20.594940},
-	journal = {bioRxiv},
-}
-
+TBA
 ```
 
