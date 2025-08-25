@@ -37,8 +37,8 @@ $ conda install -c bioconda anarci
 Once you have all dependencies installed within one enviroment, you can install ImmuneBuilder via pip by doing:
 
 ```bash
-$ git clone https://github.com/jao321/ImmuneBuilder_plus_heavy.git
-$ pip install ImmuneBuilder_plus_heavy/
+$ git clone https://github.com/jao321/HeavyBuilder.git
+$ pip install HeavyBuilder/
 ```
 
 ## Usage
