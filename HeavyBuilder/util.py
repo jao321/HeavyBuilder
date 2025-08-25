@@ -1,4 +1,4 @@
-from ImmuneBuilder.constants import res_to_num, atom_types, residue_atoms, restype_1to3, restypes
+from HeavyBuilder.constants import res_to_num, atom_types, residue_atoms, restype_1to3, restypes
 
 import numpy as np
 import torch

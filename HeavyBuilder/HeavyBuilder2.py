@@ -3,10 +3,10 @@ import numpy as np
 import os
 import argparse
 import sys
-from ImmuneBuilder.models import StructureModule
-from ImmuneBuilder.util import get_encoding, to_pdb, find_alignment_transform, download_file, sequence_dict_from_fasta, add_errors_as_bfactors, are_weights_ready
-from ImmuneBuilder.refine import refine
-from ImmuneBuilder.sequence_checks import number_sequences
+from HeavyBuilder.models import StructureModule
+from HeavyBuilder.util import get_encoding, to_pdb, find_alignment_transform, download_file, sequence_dict_from_fasta, add_errors_as_bfactors, are_weights_ready
+from HeavyBuilder.refine import refine
+from HeavyBuilder.sequence_checks import number_sequences
 import time
 # from joblib import Parallel, delayed
 

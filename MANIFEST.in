@@ -1,1 +1,1 @@
-include ImmuneBuilder/trained_model/*
+include HeavyBuilder/trained_model/*

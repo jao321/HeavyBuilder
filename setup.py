@@ -4,21 +4,18 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name='ImmuneBuilder',
-    version='1.2',
+    name='HeavyBuilder',
+    version='1.0',
     description='Set of functions to predict the structure of immune receptor proteins',
     license='BSD 3-clause license',
-    maintainer='Brennan Abanades',
+    maintainer='Joao Gervasio',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    maintainer_email='brennan.abanadeskenyon@stx.ox.ac.uk',
+    maintainer_email='joao-diniz@oist.jp',
     include_package_data=True,
-    packages=find_packages(include=('ImmuneBuilder', 'ImmuneBuilder.*')),
+    packages=find_packages(include=('HeavyBuilder', 'HeavyBuilder.*')),
     entry_points={'console_scripts': [
-        'ABodyBuilder2=ImmuneBuilder.ABodyBuilder2:command_line_interface',
-        'TCRBuilder2=ImmuneBuilder.TCRBuilder2:command_line_interface',
-        'NanoBodyBuilder2=ImmuneBuilder.NanoBodyBuilder2:command_line_interface',
-        'HeavyBuilder2=ImmuneBuilder.HeavyBuilder2:command_line_interface',
+        'HeavyBuilder2=HeavyBuilder.HeavyBuilder2:command_line_interface',
         ]},
     install_requires=[
         'numpy',

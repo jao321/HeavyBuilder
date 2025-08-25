@@ -48,7 +48,7 @@ $ pip install HeavyBuilder/
 To predict an antibody heavy chain structure using the python API you can do the following.
 
 ```python
-from ImmuneBuilder import HeavyBuilder2
+from HeavyBuilder import HeavyBuilder2
 predictor = HeavyBuilder2()
 
 output_file = "my_antibody_heavy_chain.pdb"
@@ -94,7 +94,7 @@ YOURLIGHCHAINSEQUENCE
 
 ## Issues and Pull requests
 
-Please submit issues and pull requests on this <a href="https://github.com/jao321/ImmuneBuilder_plus_heavy">repo</a>.
+Please submit issues and pull requests on this <a href="https://github.com/jao321/HeavyBuilder">repo</a>.
 
 ### Known issues
 
@@ -104,7 +104,7 @@ Please submit issues and pull requests on this <a href="https://github.com/jao32
 
 ## Citing this work
 
-The code and data in this package is based on the following paper <a href="https://doi.org/10.1038/s42003-023-04927-7">ImmuneBuilder</a>. If you use it, please cite:
+TBA
 
 ```tex
 TBA
