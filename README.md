@@ -79,6 +79,78 @@ If you want to speed up the prediction
 antibody.save_single_unrefined(output_file)
 ```
 
+### Repertoire wide prediction and structure clustering
+
+In case you want to predict heavy chain structures for sequences from a repertoire, here we have an example using the MiAIRR data format.
+
+The toy example data is in the file example_data_HB_repo.tsv in the folder example_data/
+
+This is mostly recommended for systems with CUDA ready graphics card.
+
+In python:
+```python
+'''
+
+Tutorial on how to predict and cluster heavy chains structure for a toy antibody repertoire
+
+'''
+import os
+from HeavyBuilder import HeavyBuilder2
+import pandas as pd
+
+predictor = HeavyBuilder2()
+
+#read the repertoire data
+example = pd.read_csv('example_data_HB_repo.tsv',
+                      sep='\t')
+
+#create an output folder where the pdb files will be
+output_folder = 'heavybuilder_example_pdb_files'
+os.mkdir(output_folder)
+
+#loop through the amino acid sequences of the heavy chain and predict their 3D structure
+for i in range(len(example)):
+    data = example.iloc[i][['sequence_id','sequence_aa']]
+    output_file = os.path.join(output_folder,data.sequence_id+'.pdb')
+    sequences= {
+        'H':data.sequence_aa
+    }
+    try:
+        antibody = predictor.predict(sequences)
+        antibody.save_single_unrefined(output_file)
+    except:
+        continue
+```
+
+It should take some time to predict the ~2400 structures.
+
+Now you can cluster them to check for structural similitude.
+
+First you will need to install <a href="https://github.com/oxpig/SPACE2">SPACE2</a>
+
+In a terminal you can clone SPACE2 repository and install in your python environment via pip
+
+```bash
+git clone https://github.com/fspoendlin/SPACE2.git
+pip install SPACE2/
+```
+
+Back to python:
+```python
+import glob
+import SPACE2
+
+#list pdb files previously predicted
+heavy_chain_models = glob.glob('heavybuilder_example_pdb_files/*pdb')
+
+#cluster them together
+clustered_dataframe = SPACE2.agglomerative_clustering(heavy_chain_models, cutoff=1.25, n_jobs=-1)
+
+#save clustering results to a csv file
+clustered_dataframe.to_csv('clustered_heavybuilder_example.csv',
+                           index=False)
+```
+
 Happy antibodies!!
 
 ### Fasta formatting
